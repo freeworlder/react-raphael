@@ -70,6 +70,10 @@ class Set extends React.Component{
     componentDidMount(){
         const root = ReactDOM.findDOMNode(this.refs.root);
         const parentId = root.parentElement.getAttribute("data-id");
+        if (!parentId) {
+            // in case if element is wrapped with div and thus not a direct child of a paper
+            const parentId = root.parentElement.parentElement.getAttribute("data-id");
+        }
         const set = Utils.createSet(parentId,this.props,this.handleLoad.bind(this));
         this.set = set;
         setTimeout(()=>{
