@@ -1,4 +1,5 @@
 const Raphael = require("raphael");
+Raphael.fn.toSVG = require('./export')(Raphael);
 const Utils = require("./utils");
 
 const {
