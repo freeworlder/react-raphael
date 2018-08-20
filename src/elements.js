@@ -112,7 +112,8 @@ class Element extends React.Component{
     }
     componentDidMount(){
         const root = ReactDOM.findDOMNode(this.refs.root);
-        const parentId = root.parentElement.getAttribute("data-id");
+        let parentId = root.parentElement.getAttribute("data-id");
+        parentId = parentId ? parentId : root.parentElement.parentElement.getAttribute("data-id");
         const element = Utils.createElement(parentId,this.props.type,this.props,this.handleLoad.bind(this));
         this.element = element;
         setTimeout(()=>{
