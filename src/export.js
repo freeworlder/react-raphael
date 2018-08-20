@@ -226,6 +226,9 @@ function getExportFunc(R) {
                         if( name === 'stroke'){
                             value = convertToHexColor(value);
                         }
+                        if (name === 'fill' && !initial[name] && node.node.attributes['fill']) {
+                            value = node.node.attributes['fill'].value
+                        }
 
                         initial[name] = value.toString();
 
@@ -239,11 +242,12 @@ function getExportFunc(R) {
         // Other serializers should go here
     };
 
-    const toSVG = function() {
+    const toSVG = function(defs=[]) {
         var
             paper   = this,
             restore = { svg: R.svg, vml: R.vml },
-            svg     = '<svg style="overflow: visible; position: relative;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + paper.canvas.viewBox.baseVal.width + '" version="1.1" height="' + paper.canvas.viewBox.baseVal.height + '">'
+            svg = '<svg style="overflow: visible; position: relative;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + paper.canvas.viewBox.baseVal.width + '" version="1.1" height="' + paper.canvas.viewBox.baseVal.height + '">' +
+                '<defs>' + defs + '</defs>'
         ;
 
         R.svg = true;
